@@ -8,7 +8,7 @@ class AppRouter {
     final arguments = settings.arguments;
     switch (settings.name) {
       case Routes.onBoardingScreen:
-        return MaterialPageRoute(builder: (_) => const OnboardingScree());
+        return MaterialPageRoute(builder: (_) => OnBoardingScreen());
       // case Routes.loginScreen:
       //   return MaterialPageRoute(
       //     builder: (_) => BlocProvider(
