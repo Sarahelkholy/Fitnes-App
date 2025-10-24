@@ -9,27 +9,56 @@ class AppTextStyles {
     fontSize: 24.sp,
     fontWeight: FontWeightHelper.bold,
   );
+  static TextStyle font20BlackRegular = TextStyle(
+    color: Appcolors.black,
+    fontSize: 20.sp,
+    fontWeight: FontWeightHelper.regular,
+  );
+
+  static TextStyle font20BlackSemiBold = TextStyle(
+    color: Appcolors.black,
+    fontSize: 20.sp,
+    fontWeight: FontWeightHelper.semiBold,
+  );
+
+  static TextStyle font16BlackBold = TextStyle(
+    color: Appcolors.black,
+    fontSize: 16.sp,
+    fontWeight: FontWeightHelper.bold,
+  );
 
   static TextStyle font14GrayRegular = TextStyle(
     color: Appcolors.gray,
     fontSize: 14.sp,
     fontWeight: FontWeightHelper.regular,
   );
-
-  static TextStyle font20Black = TextStyle(
-    color: Appcolors.black,
-    fontSize: 20.sp,
+  static TextStyle font12GrayRegular = TextStyle(
+    color: Appcolors.gray,
+    fontSize: 12.sp,
+    fontWeight: FontWeightHelper.regular,
   );
 
-  static TextStyle font12White = TextStyle(
+  static TextStyle font12WhiteRegular = TextStyle(
     color: Appcolors.white,
-    fontSize: 12,
+    fontSize: 12.sp,
+    fontWeight: FontWeightHelper.regular,
   );
 
-  static TextStyle font16White700Weight = TextStyle(
+  static TextStyle font14WhiteBold = TextStyle(
+    fontSize: 14.sp,
+    color: Appcolors.white,
+    fontWeight: FontWeightHelper.bold,
+  );
+  static TextStyle font15WhiteMedium = TextStyle(
+    color: Appcolors.white,
+    fontSize: 15,
+    fontWeight: FontWeightHelper.medium,
+  );
+
+  static TextStyle font16WhiteBold = TextStyle(
     fontSize: 16.sp,
     color: Appcolors.white,
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeightHelper.bold,
   );
 
   static TextStyle font12Gray500Weight = TextStyle(
@@ -75,9 +104,5 @@ class AppTextStyles {
     color: Appcolors.black,
     fontSize: 14,
     fontWeight: FontWeight.w700,
-  );
-  static TextStyle font12Gray = TextStyle(
-    color: Appcolors.gray,
-    fontSize: 12.sp,
   );
 }
