@@ -3,9 +3,9 @@ class Routes {
   static const String onBoardingScreen = '/onBoardingScreen';
   static const String logInScreen = '/logInScreen';
   static const String signUpScreen = '/signUpScreen';
-  static const String completeProfileScreen = '/completeProfileScreen';
-  static const String goalScreen = '/goalScreen';
-  static const String welcomeScreen = '/welcomeScreen';
+  static const String addUserInfoScreen = '/AddUserInfoScreen';
+  static const String chooseGoalScreen = '/ChooseGoalScreen';
+  static const String signupSuccessScreen = '/SignupSuccessScreen';
 
   // static const String homeScreen = '/homeScreen';
   // static const String mainTabScreen = '/mainTabScreen';
