@@ -1,9 +1,12 @@
 import 'package:fitnestx/core/helpers/spacing.dart';
 import 'package:fitnestx/core/theming/app_text_styles.dart';
 import 'package:fitnestx/core/widgets/rounded_button.dart';
+import 'package:fitnestx/features/login/logic/cubit/login_cubit.dart';
 import 'package:fitnestx/features/login/ui/widgets/do_not_have_an_account.dart';
+import 'package:fitnestx/features/login/ui/widgets/login_bloc_listener.dart';
 import 'package:fitnestx/features/login/ui/widgets/login_form.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -28,21 +31,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 Text('Welcome Back', style: AppTextStyles.font24BlackBold),
                 verticalSpace(25),
                 LoginForm(),
-                // GestureDetector(
-                //   // TODO: add function
-                //   onTap: () {},
-                //   child: Text(
-                //     "Forgot your password?",
-                //     style: AppTextStyles.font12Gray.copyWith(
-                //       decoration: TextDecoration.underline,
-                //     ),
-                //   ),
-                // ),
                 verticalSpace(40),
                 RoundedButton(
                   istextOnly: false,
                   onPressed: () {
-                    // context.pushReplacementNamed(Routes.mainTabScreen);
+                    validateThenDoLogin(context);
                   },
                   buttonChiled: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -60,11 +53,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 verticalSpace(18),
 
                 DoNotHaveAnAccount(),
+                LoginBlocListener(),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  void validateThenDoLogin(BuildContext context) {
+    if (context.read<LoginCubit>().formkey.currentState!.validate()) {
+      context.read<LoginCubit>().emitLoginStates();
+    }
   }
 }

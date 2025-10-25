@@ -2,7 +2,9 @@ import 'package:fitnestx/core/helpers/app_regex.dart';
 import 'package:fitnestx/core/helpers/spacing.dart';
 import 'package:fitnestx/core/theming/app_colors.dart';
 import 'package:fitnestx/core/widgets/form_container.dart';
+import 'package:fitnestx/features/login/logic/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -12,21 +14,16 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  final emailController = TextEditingController();
-
-  final passwordController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
   bool isPasswordObscureText = true;
-  bool isCheck = false;
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      // key: formKey,
+      key: context.read<LoginCubit>().formkey,
       child: Column(
         children: [
           FormContainer(
-            controller: emailController,
+            controller: context.read<LoginCubit>().emailController,
             prefixIcon: 'assets/icons/Email.png',
             hintText: 'Email',
             keyboardType: TextInputType.emailAddress,
@@ -47,7 +44,7 @@ class _LoginFormState extends State<LoginForm> {
                 return 'Please enter a valid password';
               }
             },
-            controller: passwordController,
+            controller: context.read<LoginCubit>().passwordController,
             isObscureText: isPasswordObscureText,
             prefixIcon: 'assets/icons/Password.png',
             hintText: 'Password',
