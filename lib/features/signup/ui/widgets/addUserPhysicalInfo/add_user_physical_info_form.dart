@@ -1,29 +1,28 @@
-import 'package:fitnestx/core/helpers/extentions.dart';
+import 'package:fitnestx/core/helpers/app_regex.dart';
 import 'package:fitnestx/core/helpers/spacing.dart';
 import 'package:fitnestx/core/theming/app_colors.dart';
 import 'package:fitnestx/core/theming/app_text_styles.dart';
 import 'package:fitnestx/core/widgets/form_container.dart';
+import 'package:fitnestx/features/signup/logic/cubit/sign_up_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AddUserInfoForm extends StatefulWidget {
-  const AddUserInfoForm({super.key});
+class AddUserPhysicalInfoForm extends StatefulWidget {
+  const AddUserPhysicalInfoForm({super.key});
 
   @override
-  State<AddUserInfoForm> createState() => _AddUserInfoFormState();
+  State<AddUserPhysicalInfoForm> createState() =>
+      _AddUserPhysicalInfoFormState();
 }
 
-class _AddUserInfoFormState extends State<AddUserInfoForm> {
-  final genderController = TextEditingController();
-  final dateOfBirthController = TextEditingController();
-  final weightController = TextEditingController();
+class _AddUserPhysicalInfoFormState extends State<AddUserPhysicalInfoForm> {
+  String? selectedGender;
 
-  final heightController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: formKey,
+      key: context.read<SignUpCubit>().userInfoFormKey,
       child: Column(
         children: [
           Container(
@@ -47,6 +46,7 @@ class _AddUserInfoFormState extends State<AddUserInfoForm> {
                 Expanded(
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton(
+                      value: selectedGender,
                       dropdownColor: Appcolors.white,
                       borderRadius: BorderRadius.circular(10.r),
                       padding: EdgeInsets.symmetric(horizontal: 15.w),
@@ -61,7 +61,13 @@ class _AddUserInfoFormState extends State<AddUserInfoForm> {
                             ),
                           )
                           .toList(),
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        setState(() {
+                          selectedGender = value;
+                        });
+                        context.read<SignUpCubit>().genderController.text =
+                            value!;
+                      },
                       isExpanded: true,
                       hint: Text(
                         "Choose Gender",
@@ -75,26 +81,44 @@ class _AddUserInfoFormState extends State<AddUserInfoForm> {
           ),
           verticalSpace(20),
           FormContainer(
-            controller: dateOfBirthController,
+            controller: context.read<SignUpCubit>().dateOfBirthController,
             prefixIcon: 'assets/icons/Calendar.png',
             hintText: 'Date of Birth',
+            onTap: () async {
+              FocusScope.of(context).requestFocus(FocusNode());
+              final date = await showDatePicker(
+                context: context,
+                initialDate: DateTime(2000),
+                firstDate: DateTime(1900),
+                lastDate: DateTime.now(),
+              );
+              if (date != null) {
+                context.read<SignUpCubit>().dateOfBirthController.text =
+                    "${date.day}/${date.month}/${date.year}";
+              }
+            },
+            isReadOnly: true,
             validator: (value) {
-              if (value.isNullOrEmpty()) {
+              if (value == null || value.isEmpty) {
                 return 'Please enter a valid Date of Birth';
               }
             },
             keyboardType: TextInputType.datetime,
           ),
+
           verticalSpace(20),
           Row(
             children: [
               Expanded(
                 child: FormContainer(
-                  controller: weightController,
+                  controller: context.read<SignUpCubit>().weightController,
+                  keyboardType: TextInputType.number,
                   prefixIcon: 'assets/icons/weight.png',
                   hintText: 'Your Weight',
                   validator: (value) {
-                    if (value.isNullOrEmpty()) {
+                    if (value == null ||
+                        value.isEmpty ||
+                        !AppRegex.isWeightValid(value)) {
                       return 'Please enter a valid Weight';
                     }
                   },
@@ -122,11 +146,15 @@ class _AddUserInfoFormState extends State<AddUserInfoForm> {
             children: [
               Expanded(
                 child: FormContainer(
-                  controller: heightController,
+                  controller: context.read<SignUpCubit>().heightController,
                   prefixIcon: 'assets/icons/Swap.png',
+                  keyboardType: TextInputType.number,
+
                   hintText: 'Your Height',
                   validator: (value) {
-                    if (value.isNullOrEmpty()) {
+                    if (value == null ||
+                        value.isEmpty ||
+                        !AppRegex.isHeightValid(value)) {
                       return 'Please enter a valid Height';
                     }
                   },
