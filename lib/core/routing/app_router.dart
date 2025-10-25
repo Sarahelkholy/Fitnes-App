@@ -1,6 +1,7 @@
 import 'package:fitnestx/core/di/dependency_injection.dart';
 import 'package:fitnestx/core/routing/routes.dart';
 import 'package:fitnestx/features/home/ui/home_screen.dart';
+import 'package:fitnestx/features/login/ui/login_screen.dart';
 import 'package:fitnestx/features/onboarding/ui/onboarding_scree.dart';
 import 'package:fitnestx/features/signup/logic/cubit/sign_up_cubit.dart';
 import 'package:fitnestx/features/signup/ui/add_user_physical_info_screen.dart';
@@ -15,9 +16,11 @@ class AppRouter {
     // this arguments to be passed in any screen like this (arguments as className)
     final arguments = settings.arguments;
     switch (settings.name) {
+      // onBoarding route
       case Routes.onBoardingScreen:
         return MaterialPageRoute(builder: (_) => OnBoardingScreen());
 
+      // Sign up roytes
       case Routes.addUserBasicInfoScreen:
         final cubit = getIt<SignUpCubit>();
         return MaterialPageRoute(
@@ -45,6 +48,10 @@ class AppRouter {
 
       case Routes.signupSuccessScreen:
         return MaterialPageRoute(builder: (_) => SignupSuccessScreen());
+
+      // Login route
+      case Routes.logInScreen:
+        return MaterialPageRoute(builder: (_) => LoginScreen());
 
       case Routes.homeScreen:
         return MaterialPageRoute(builder: (_) => HomeScreen());
