@@ -8,6 +8,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class FormContainer extends StatelessWidget {
   final TextEditingController? controller;
   final bool? isObscureText;
+  final bool? isReadOnly;
+  final VoidCallback? onTap;
   final TextInputType? keyboardType;
   final String hintText;
   final String? prefixIcon;
@@ -23,11 +25,16 @@ class FormContainer extends StatelessWidget {
     required this.hintText,
     this.prefixIcon,
     required this.validator,
+    this.isReadOnly,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onTap: onTap,
+      readOnly: isReadOnly ?? false,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: controller,
       obscureText: isObscureText ?? false,
       keyboardType: keyboardType,
@@ -48,26 +55,31 @@ class FormContainer extends StatelessWidget {
           borderSide: const BorderSide(color: Colors.red, width: 1.5),
           borderRadius: BorderRadius.circular(10.r),
         ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.red, width: 1.5),
+          borderRadius: BorderRadius.circular(10.r),
+        ),
         filled: true,
         fillColor: Appcolors.lightGray,
-
         hintText: hintText,
         hintStyle: AppTextStyles.font12GrayRegular,
-
-        prefixIcon: Container(
-          alignment: Alignment.center,
-          width: 20.w,
-          height: 20.w,
-          child: Image.asset(
-            prefixIcon!,
-            width: 20.w,
-            height: 20.w,
-            fit: BoxFit.contain,
-            color: Appcolors.gray,
-          ),
-        ),
+        prefixIcon: prefixIcon != null
+            ? Container(
+                alignment: Alignment.center,
+                width: 20.w,
+                height: 20.w,
+                child: Image.asset(
+                  prefixIcon!,
+                  width: 20.w,
+                  height: 20.w,
+                  fit: BoxFit.contain,
+                  color: Appcolors.gray,
+                ),
+              )
+            : null,
         suffixIcon: suffixIcon,
       ),
+      validator: (value) => validator(value),
     );
   }
 }

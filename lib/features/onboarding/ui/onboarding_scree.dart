@@ -35,7 +35,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   void _goNext() {
     if (_isLastPage) {
-      context.pushReplacementNamed(Routes.signUpScreen);
+      context.pushReplacementNamed(Routes.addUserBasicInfoScreen);
       return;
     }
     final next = (_selectedPage + 1).clamp(0, _totalPages - 1);

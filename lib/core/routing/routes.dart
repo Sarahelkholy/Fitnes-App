@@ -2,12 +2,12 @@ class Routes {
   // login and sign up routes
   static const String onBoardingScreen = '/onBoardingScreen';
   static const String logInScreen = '/logInScreen';
-  static const String signUpScreen = '/signUpScreen';
-  static const String addUserInfoScreen = '/AddUserInfoScreen';
+  static const String addUserBasicInfoScreen = '/AddUserBasicInfoScreen';
+  static const String addUserPhysicalInfoScreen = '/AddUserPhysicalInfoScreen';
   static const String chooseGoalScreen = '/ChooseGoalScreen';
   static const String signupSuccessScreen = '/SignupSuccessScreen';
 
-  // static const String homeScreen = '/homeScreen';
+  static const String homeScreen = '/homeScreen';
   // static const String mainTabScreen = '/mainTabScreen';
   // static const String workoutTrackerScreen = '/workoutTrackerScreen';
   // static const String mealPlannerScreen = '/mealPlannerScreen';
