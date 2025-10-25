@@ -1,6 +1,7 @@
 import 'package:fitnestx/core/di/dependency_injection.dart';
 import 'package:fitnestx/core/routing/routes.dart';
 import 'package:fitnestx/features/home/ui/home_screen.dart';
+import 'package:fitnestx/features/login/logic/cubit/login_cubit.dart';
 import 'package:fitnestx/features/login/ui/login_screen.dart';
 import 'package:fitnestx/features/onboarding/ui/onboarding_scree.dart';
 import 'package:fitnestx/features/signup/logic/cubit/sign_up_cubit.dart';
@@ -51,25 +52,16 @@ class AppRouter {
 
       // Login route
       case Routes.logInScreen:
-        return MaterialPageRoute(builder: (_) => LoginScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<LoginCubit>(),
+            child: const LoginScreen(),
+          ),
+        );
 
       case Routes.homeScreen:
         return MaterialPageRoute(builder: (_) => HomeScreen());
 
-      // case Routes.loginScreen:
-      //   return MaterialPageRoute(
-      //     builder: (_) => BlocProvider(
-      //       create: (context) => getIt<LoginCubit>(),
-      //       child: const LoginScreen(),
-      //     ),
-      //   );
-      // case Routes.signUpScreen:
-      //   return MaterialPageRoute(
-      //     builder: (_) => BlocProvider(
-      //       create: (context) => getIt<SignUpCubit>(),
-      //       child: const SignUpScreen(),
-      //     ),
-      //   );
       // case Routes.homeScreen:
       //   return MaterialPageRoute(
       //     builder: (_) => BlocProvider(
